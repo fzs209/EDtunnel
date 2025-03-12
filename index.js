@@ -4,7 +4,7 @@ import { connect } from 'cloudflare:sockets';
 
 // How to generate your own UUID:
 // [Windows] Press "Win + R", input cmd and run:  Powershell -NoExit -Command "[guid]::NewGuid()"
-let userID = 'd342d11e-d424-4583-b36e-524ab1f0afa4';
+let userID = '';
 
 let proxyIP = '';
 
@@ -46,17 +46,6 @@ export default {
 			if (!upgradeHeader || upgradeHeader !== 'websocket') {
 				const url = new URL(request.url);
 				switch (url.pathname) {
-					// case '/':
-					// 	return new Response(JSON.stringify(request.cf), { status: 200 });
-					// case `/${userID}`: {
-					// 	const ProtocolxConfig = getProtocolxConfig(userID, request.headers.get('Host'));
-					// 	return new Response(`${ProtocolxConfig}`, {
-					// 		status: 200,
-					// 		headers: {
-					// 			"Content-Type": "text/plain;charset=utf-8",
-					// 		}
-					// 	});
-					// }
 					default:
 						return new Response('Not found', { status: 404 });
 				}
@@ -761,45 +750,3 @@ function socks5AddressParser(address) {
 		port,
 	}
 }
-
-// /**
-//  * 
-//  * @param {string} userID 
-//  * @param {string | null} hostName
-//  * @returns {string}
-//  */
-// function getProtocolxConfig(userID, hostName) {
-// 	const protocol = "Protocolx";
-// 	const ProtocolxMain = 
-// 	`${protocol}` + 
-// 	`://${userID}@${hostName}:443`+
-// 	`?encryption=none&security=tls&sni=${hostName}&fp=randomized&type=ws&host=${hostName}&path=%2F%3Fed%3D2048#${hostName}`;
-	
-// 	return `
-// ################################################################
-// v2ray
-// ---------------------------------------------------------------
-// ${ProtocolxMain}
-// ---------------------------------------------------------------
-// ################################################################
-// clash-meta
-// ---------------------------------------------------------------
-// - type: Protocolx
-//   name: ${hostName}
-//   server: ${hostName}
-//   port: 443
-//   uuid: ${userID}
-//   network: ws
-//   tls: true
-//   udp: false
-//   sni: ${hostName}
-//   client-fingerprint: chrome
-//   ws-opts:
-//     path: "/?ed=2048"
-//     headers:
-//       host: ${hostName}
-// ---------------------------------------------------------------
-// ################################################################
-// `;
-// }
-
